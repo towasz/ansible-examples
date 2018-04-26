@@ -33,3 +33,21 @@
 
 - name: Data Structure | Lits | Print inline declared list
   debug: var=lists_d
+
+- name: Data Structure | Lits | Merge inline declared list with iterated one
+  set_fact:
+    lists_e: >-
+      [
+        "one" ,
+        "two",
+        "three",
+      {%- if list_b is defined -%}
+      {%- for item in list_b  -%}
+      "{{ item }}"
+      {% if not loop.last %},{% endif %}
+      {%- endfor -%}
+      {%- endif -%}
+      ]
+
+- name: Data Structure | Lits | Print inline declared list with iteradted one
+  debug: var=lists_e
