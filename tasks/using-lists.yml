@@ -1,0 +1,35 @@
+---
+
+- name: Data Structure | Lits | Define two lists
+  set_fact:
+    list_a:
+      - one
+      - two
+      - three
+    list_b:
+      - four
+      - five
+      - six
+
+- name: Data Structure | Lits | Merge the two lists
+  set_fact:
+    lists_c: "{{ list_a }} + {{ list_b }}"
+
+- name: Data Structure | Lits | Print merged lists
+  debug: var=lists_c
+
+- name: Data Structure | Lits | Merge inline declared list with list
+  set_fact:
+    lists_d: >-
+      [
+        "one" ,
+        "two",
+        "three",
+      ]
+      {%- if list_b is defined -%}
+      +
+      {{ list_b }}
+      {%- endif -%}
+
+- name: Data Structure | Lits | Print inline declared list
+  debug: var=lists_d
